@@ -12,4 +12,5 @@ profile_razor() {
 		bkeymaps alpine-base alpine-mirrors network-extras openssl openssh
 		chrony tzdata ruby ruby-rake ruby-bundler net-tools
 	"
+	apkovl="genapkovl-razor.sh"
 }
