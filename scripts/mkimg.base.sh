@@ -273,5 +273,5 @@ profile_base() {
 	grub_mod="disk part_msdos linux normal configfile search search_label efi_uga efi_gop fat iso9660 cat echo ls test true help"
 	apks="alpine-base alpine-mirrors busybox kbd-bkeymaps chrony e2fsprogs network-extras libressl openssh tzdata"
 	apkovl=
-	hostname="alpine"
+	hostname="alpine-razor"
 }
