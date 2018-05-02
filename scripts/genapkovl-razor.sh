@@ -58,27 +58,19 @@ ruby-bundler
 net-tools
 EOF
 
-mkdir -p "$tmp"/etc/init.d/
-makefile root:root 0755 "$tmp"/etc/init.d/rubygemski <<EOF
-#!/sbin/openrc-run
-  
-description="Install Facter"
+makefile root:root 0755 "$tmp"/etc/rubygemski.sh <<EOF
+#!/bin/sh
 
-depend() {
-        need net
-}
+/etc/init.d/networking start
+sleep 5
+gem install facter rspec --no-ri --no-rdoc
+echo "made it this far bye bye"
+rm -rf $0
+EOF
 
-start() {
-        ebegin "started rubygemski"
-        start-stop-daemon --start --exec gem install facter rspec --no
--ri --no-rdoc
-        eend $?
-}
-
-stop() {
-        ebegin "Stopping rubygemski"
-        eend $?
-}
+mkdir -p "$tmp"/etc/crontab
+makefile root:root 0644 "$tmp"/etc/root <<EOF
+@reboot root /bin/sh /etc/rubygemski.sh
 EOF
 
 rc_add devfs sysinit
