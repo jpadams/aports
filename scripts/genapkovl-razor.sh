@@ -68,8 +68,8 @@ echo "made it this far bye bye"
 rm -rf $0
 EOF
 
-mkdir -p "$tmp"/etc/crontab
-makefile root:root 0644 "$tmp"/etc/root <<EOF
+mkdir -p "$tmp"/etc/crontabs
+makefile root:root 0644 "$tmp"/etc/crontabs/root <<EOF
 @reboot root /bin/sh /etc/rubygemski.sh
 EOF
 
