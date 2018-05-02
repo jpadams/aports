@@ -61,7 +61,7 @@ EOF
 mkdir -p "$tmp"/etc/init.d/
 makefile root:root 0755 "$tmp"/etc/init.d/rubygemski <<EOF
 #!/sbin/openrc-run
-
+  
 description="Install Facter"
 
 depend() {
@@ -69,9 +69,15 @@ depend() {
 }
 
 start() {
-        echo "started rubygemski"
-        gem install rspec --no-ri --no-rdoc
-        gem install facter --no-ri --no-rdoc
+        ebegin "started rubygemski"
+        start-stop-daemon --start --exec gem install facter rspec --no
+-ri --no-rdoc
+        eend $?
+}
+
+stop() {
+        ebegin "Stopping rubygemski"
+        eend $?
 }
 EOF
 
