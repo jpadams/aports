@@ -58,8 +58,22 @@ ruby-bundler
 net-tools
 EOF
 
-gem install rspec --no-ri --no-rdoc
-gem install facter --no-ri --no-rdoc
+mkdir -p "$tmp"/etc/init.d/
+makefile root:root 0755 "$tmp"/etc/init.d/rubygemski <<EOF
+#!/sbin/openrc-run
+
+description="Install Facter"
+
+depend() {
+        need net
+}
+
+start() {
+        echo "started rubygemski"
+        gem install rspec --no-ri --no-rdoc
+        gem install facter --no-ri --no-rdoc
+}
+EOF
 
 rc_add devfs sysinit
 rc_add dmesg sysinit
@@ -73,6 +87,8 @@ rc_add sysctl boot
 rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
+
+rc_add rubygemski default
 
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
