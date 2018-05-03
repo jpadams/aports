@@ -85,7 +85,7 @@ rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
 
-rc_add networking default
+rc_add networking boot
 rc_add crond default
 
 rc_add mount-ro shutdown
