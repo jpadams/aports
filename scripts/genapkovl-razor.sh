@@ -62,13 +62,13 @@ mkdir -p "$tmp"/etc/periodic/15min
 makefile root:root 0755 "$tmp"/etc/periodic/15min/rubygemski <<EOF
 #!/bin/sh
 
-gem install facter rspec --no-ri --no-rdoc
+/usr/bin/gem install facter rspec --no-ri --no-rdoc
 echo "made it this far bye bye"
 EOF
 
 mkdir -p "$tmp"/etc/crontabs/
 makefile root:root 0644 "$tmp"/etc/crontabs/root <<EOF
-@reboot /etc/periodic/15min/rubygemski
+@reboot /bin/sh /etc/periodic/15min/rubygemski
 EOF
 
 rc_add devfs sysinit
