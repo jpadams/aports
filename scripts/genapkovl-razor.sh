@@ -60,10 +60,21 @@ EOF
 
 mkdir -p "$tmp"/etc/profile.d/                                
 makefile root:root 0755 "$tmp"/etc/profile.d/rubski.sh <<EOF  
-#!/bin/sh                                                     
-                                                              
-/usr/bin/gem install facter rspec --no-ri --no-rdoc           
-echo "made it this far bye bye"                               
+#!/bin/sh
+
+echo "verifing network connection..."
+if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+	echo "installing facter..."
+	sleep 2
+	/usr/bin/gem install facter rspec --no-ri --no-rdoc >/dev/null
+else
+  	echo "network is down"
+	ip address show
+	exit 1
+fi
+
+exit 0
+
 EOF
 
 rc_add devfs sysinit
