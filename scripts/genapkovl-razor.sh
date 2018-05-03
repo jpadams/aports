@@ -58,18 +58,17 @@ ruby-bundler
 net-tools
 EOF
 
-mkdir -p "$tmp"/etc/periodic/
-makefile root:root 0755 "$tmp"/etc/periodic/rubygemski <<EOF
+mkdir -p "$tmp"/etc/periodic/15min
+makefile root:root 0755 "$tmp"/etc/periodic/15min/rubygemski <<EOF
 #!/bin/sh
 
 gem install facter rspec --no-ri --no-rdoc
 echo "made it this far bye bye"
-rm -rf $0
 EOF
 
 mkdir -p "$tmp"/etc/crontabs/
 makefile root:root 0644 "$tmp"/etc/crontabs/root <<EOF
-@reboot root /bin/sh /etc/periodic/rubygemski
+@reboot /etc/periodic/15min/rubygemski
 EOF
 
 rc_add devfs sysinit
