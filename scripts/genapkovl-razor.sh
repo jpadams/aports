@@ -58,17 +58,12 @@ ruby-bundler
 net-tools
 EOF
 
-mkdir -p "$tmp"/etc/periodic/15min
-makefile root:root 0755 "$tmp"/etc/periodic/15min/rubygemski <<EOF
-#!/bin/sh
-
-/usr/bin/gem install facter rspec --no-ri --no-rdoc
-echo "made it this far bye bye"
-EOF
-
-mkdir -p "$tmp"/etc/crontabs/
-makefile root:root 0644 "$tmp"/etc/crontabs/root <<EOF
-@reboot /bin/sh /etc/periodic/15min/rubygemski
+mkdir -p "$tmp"/etc/profile.d/                                
+makefile root:root 0755 "$tmp"/etc/profile.d/rubski.sh <<EOF  
+#!/bin/sh                                                     
+                                                              
+/usr/bin/gem install facter rspec --no-ri --no-rdoc           
+echo "made it this far bye bye"                               
 EOF
 
 rc_add devfs sysinit
@@ -85,7 +80,6 @@ rc_add bootmisc boot
 rc_add syslog boot
 
 rc_add networking boot
-rc_add crond default
 
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
