@@ -58,20 +58,17 @@ ruby-bundler
 net-tools
 EOF
 
+mkdir -p "$tmp"/etc/gems
+cp /root/alpine-vanilla-ppc64le/aports/scripts/cache/facter-2.5.1.gem "$tmp"/etc
+/gems
+
 mkdir -p "$tmp"/etc/profile.d/                                
 makefile root:root 0755 "$tmp"/etc/profile.d/rubski.sh <<EOF  
 #!/bin/sh
 
-echo "verifing network connection..."
-if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
-	echo "installing facter..."
-	sleep 2
-	/usr/bin/gem install facter rspec --no-ri --no-rdoc >/dev/null
-else
-  	echo "network is down"
-	ip address show
-	exit 1
-fi
+echo "Installing local Facter gem from /etc/gems ..."
+
+/usr/bin/gem install --local /etc/gems/facter-2.5.1.gem --no-document
 
 EOF
 
