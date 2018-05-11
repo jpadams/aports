@@ -59,7 +59,7 @@ net-tools
 EOF
 
 mkdir -p "$tmp"/etc/gems
-cp /root/alpine-vanilla-ppc64le/aports/scripts/cache/facter-2.5.1.gem "$tmp"/etc
+cp /root/alpine-vanilla-ppc64le/aports/scripts/gems/facter-2.5.1.gem "$tmp"/etc
 /gems
 
 mkdir -p "$tmp"/etc/profile.d/                                
